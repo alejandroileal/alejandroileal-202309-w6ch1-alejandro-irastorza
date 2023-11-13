@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import { AppContext } from '../../context/app.context';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../core/store';
 
 export function Info() {
-  const { callDisplay } = useContext(AppContext);
+  const callState = useSelector((state: RootState) => state.call.isCalling);
 
-  return <span className={callDisplay ? 'message' : 'off'}>Calling...</span>;
+  return <span className={callState ? 'message' : 'off'}>Calling...</span>;
 }

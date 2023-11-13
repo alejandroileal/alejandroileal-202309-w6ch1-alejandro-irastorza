@@ -12,14 +12,11 @@ const callSlice = createSlice({
   name: 'call',
   initialState,
   reducers: {
-    activate: (state, action: PayloadAction<PhoneState>) => {
-      return { isCalling: true };
-    },
-    desactivate: (state) => {
-      return initialState;
+    phoneStatus: (state, action: PayloadAction<CallState>) => {
+      return action.payload;
     },
   },
 });
 
 export default callSlice.reducer;
-export const actions = callSlice.actions;
+export const { phoneStatus } = callSlice.actions;

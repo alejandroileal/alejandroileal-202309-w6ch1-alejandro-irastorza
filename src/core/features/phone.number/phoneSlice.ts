@@ -13,9 +13,11 @@ const phoneSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<PhoneState>) => {
+      console.log(state);
       return action.payload;
     },
     erase: (state) => {
+      console.log(state);
       return initialState;
     },
   },

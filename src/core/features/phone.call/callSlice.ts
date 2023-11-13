@@ -13,6 +13,8 @@ const callSlice = createSlice({
   initialState,
   reducers: {
     phoneStatus: (state, action: PayloadAction<CallState>) => {
+      console.log(state);
+
       return action.payload;
     },
   },

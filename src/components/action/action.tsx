@@ -1,42 +1,36 @@
-import { useContext } from 'react';
-import { AppContext } from '../../context/app.context';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../core/store';
+import { phoneStatus } from '../../core/features/phone.call/callSlice';
+
 export function Action() {
-  const { numbersInput, setCallDisplay, setnumbersInput } =
-    useContext(AppContext);
+  const dispatcher = useDispatch();
 
-  function printCallingMessage() {
-    setCallDisplay(true);
-  }
+  const handleCall = () => {
+    dispatcher(phoneStatus({ isCalling: true }));
+    console.log(callState);
+  };
 
-  function handleCall() {
-    if (numbersInput.length < 9) {
-      return;
-    }
-    printCallingMessage();
-    setnumbersInput(['']);
-  }
+  const handleHang = () => {
+    dispatcher(phoneStatus({ isCalling: false }));
+    console.log(callState);
+  };
 
-  function handleHang() {
-    hideCallingMessage();
-  }
-
-  function hideCallingMessage() {
-    setCallDisplay(false);
-  }
+  const phoneState = useSelector((state: RootState) => state.phone);
+  const callState = useSelector((state: RootState) => state.call.isCalling);
 
   return (
     <>
-      <span className="number">{numbersInput}</span>
+      <span className="number">{phoneState.phoneNumber}</span>
       <a
         href="#"
-        className={numbersInput.length === 9 ? 'call active' : 'call'}
+        className={callState ? 'call' : 'call active'}
         onClick={handleCall}
       >
         Call
       </a>
       <a
         href="#"
-        className={numbersInput.length < 9 ? 'hang active' : 'hang'}
+        className={callState ? 'hang active' : 'hang'}
         onClick={handleHang}
       >
         Hang
